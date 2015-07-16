@@ -10,7 +10,7 @@ import timber.log.Timber;
 /**
  * Created by tblagodarova on 7/10/15.
  */
-public class ApplicationClass extends Application {
+public class ApplicationClass extends Application  {
     @Override public void onCreate() {
         super.onCreate();
 
