@@ -1,10 +1,12 @@
 package com.material.tblagodarova.design.ui;
 
+import com.crashlytics.android.Crashlytics;
 import com.material.tblagodarova.design.BuildConfig;
 
 import android.app.Application;
 import android.util.Log;
 
+import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 /**
@@ -13,6 +15,7 @@ import timber.log.Timber;
 public class ApplicationClass extends Application  {
     @Override public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
