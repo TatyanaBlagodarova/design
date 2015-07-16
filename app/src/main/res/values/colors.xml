@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrim">#ff9007</color>
+    <color name="colorPrimDark">#ff0075</color>
+    <color name="colorAccent">#928000</color>
+
+    <!--Custom Selectable colors-->
+    <color name="colorBackground">#F7F7D7</color>
+    <color name="colorBackgroundDark">#f0f057</color>
+
+
+</resources>
