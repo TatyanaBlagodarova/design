@@ -7,6 +7,7 @@ import com.material.tblagodarova.design.ui.fragments.HomeFragment;
 import org.androidannotations.annotations.EActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -30,8 +31,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentDrawer.Fr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-       
+        setContentView(R.layout.activity_home);
         setupToolbar();
         setupSlidingMenu();
         displayView(0);
@@ -89,6 +89,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 title = getString(R.string.hello_world);
                 break;
             case 1:
+
                 break;
             case 2:
 
@@ -106,6 +107,11 @@ public class HomeActivity extends AppCompatActivity implements FragmentDrawer.Fr
             // set the toolbar title
             getSupportActionBar().setTitle(title);
         }
+        else {
+           Intent intent= new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
+
 
 }

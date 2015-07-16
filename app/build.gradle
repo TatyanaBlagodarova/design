@@ -45,7 +45,7 @@ android {
 
     defaultConfig {
         applicationId "com.material.tblagodarova.design"
-        minSdkVersion 10
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -54,14 +54,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            ext.betaDistributionGroupAliases="test-group"
-            ext.betaDistributionReleaseNotes="Release Notes for this build."
+
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            ext.betaDistributionGroupAliases="test-group"
-            ext.betaDistributionDebugNotes="Release Notes for this build."
 
         }
     }
