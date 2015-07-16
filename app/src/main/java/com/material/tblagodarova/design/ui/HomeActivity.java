@@ -31,7 +31,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentDrawer.Fr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        int a = 9 / 0;
+       n
         setupToolbar();
         setupSlidingMenu();
         displayView(0);
