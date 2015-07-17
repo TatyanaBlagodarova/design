@@ -1,10 +1,17 @@
 package com.material.tblagodarova.design.ui;
 
 import com.material.tblagodarova.design.R;
+import com.material.tblagodarova.design.data.WeatherJson;
 import com.material.tblagodarova.design.ui.fragments.FragmentDrawer;
 import com.material.tblagodarova.design.ui.fragments.HomeFragment;
+import com.material.tblagodarova.design.ui.network.RestClientErrorHandler;
+import com.material.tblagodarova.design.ui.network.RestClientManager;
 
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.rest.RestService;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,11 +29,21 @@ import android.view.View;
 
 import timber.log.Timber;
 
-
+@EActivity
 public class HomeActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private FragmentDrawer drawerFragment;
     private Toolbar mToolbar;
+
+    @RestService
+    RestClientManager restClient; //Inject it
+    @Bean
+    RestClientErrorHandler restErrorHandler;
+
+    @AfterInject
+    void afterInject() {
+        restClient.setRestErrorHandler(restErrorHandler);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +106,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 title = getString(R.string.hello_world);
                 break;
             case 1:
-
+                sendrestApirequest();
                 break;
             case 2:
 
@@ -106,11 +123,17 @@ public class HomeActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
             // set the toolbar title
             getSupportActionBar().setTitle(title);
-        }
-        else {
-           Intent intent= new Intent(this, MainActivity.class);
+        } else {
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Background
+    public void sendrestApirequest() {
+        WeatherJson obj = restClient.getWeather("Kharkiv", "ua");
+        if (obj != null)
+            Timber.v(obj.toString());
     }
 
 
