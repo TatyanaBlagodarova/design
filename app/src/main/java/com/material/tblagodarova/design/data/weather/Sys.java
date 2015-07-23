@@ -1,4 +1,4 @@
-package com.material.tblagodarova.design.data;
+package com.material.tblagodarova.design.data.weather;
 
 /**
  * Created by tblagodarova on 7/17/15.

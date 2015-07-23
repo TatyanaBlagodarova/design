@@ -15,7 +15,7 @@
             android:paddingBottom="10dp"
             android:textSize="15dp"
             android:elevation="10dp"
-            android:textColor="#ffffff"
+            android:textColor="#456789"
             android:textStyle="bold"/>
 
 

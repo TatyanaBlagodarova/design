@@ -1,7 +1,12 @@
 package com.material.tblagodarova.design.ui;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+
 import com.material.tblagodarova.design.R;
-import com.material.tblagodarova.design.data.WeatherJson;
+import com.material.tblagodarova.design.data.weather.WeatherJson;
 import com.material.tblagodarova.design.ui.fragments.FragmentDrawer;
 import com.material.tblagodarova.design.ui.fragments.HomeFragment;
 import com.material.tblagodarova.design.ui.network.RestClientErrorHandler;
@@ -14,18 +19,19 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.rest.RestService;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import timber.log.Timber;
 
@@ -34,6 +40,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     private FragmentDrawer drawerFragment;
     private Toolbar mToolbar;
+    public static final int PLACE_PICKER_REQUEST = 1;
 
     @RestService
     RestClientManager restClient; //Inject it
@@ -109,7 +116,19 @@ public class HomeActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 sendrestApirequest();
                 break;
             case 2:
-
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case 3:
+                Intent intent2 = new Intent(this, GoogleSignInActivity_.class);
+                startActivity(intent2);
+                break;
+            case 4:
+                try {
+                    launchPlace();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
                 break;
             default:
                 break;
@@ -123,9 +142,6 @@ public class HomeActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
             // set the toolbar title
             getSupportActionBar().setTitle(title);
-        } else {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
         }
     }
 
@@ -136,5 +152,44 @@ public class HomeActivity extends AppCompatActivity implements FragmentDrawer.Fr
             Timber.v(obj.toString());
     }
 
+    // Start Google Place Picker Code **************************************************************
+    public void launchPlace() throws GooglePlayServicesNotAvailableException,
+            GooglePlayServicesRepairableException {
 
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        Context context = getApplicationContext();
+        Timber.v("launchPlace ");
+        startActivityForResult(builder.build(context), PLACE_PICKER_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Timber.v("onActivityResult " + requestCode + "   " + resultCode);
+        String badLocation = "That location is not valid for this app, please select a valid location";
+
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                Place place = PlacePicker.getPlace(data, getApplicationContext());
+                if (place.getPlaceTypes().contains(34)) {
+                    if (place.getPlaceTypes().contains(9) || place.getPlaceTypes().contains(15) ||
+                            place.getPlaceTypes().contains(38) ||
+                            place.getPlaceTypes().contains(67) ||
+                            place.getPlaceTypes().contains(79)) {
+
+                        Toast.makeText(getApplicationContext(),
+                                "You choosed " + place.getName(), Toast.LENGTH_LONG).show();
+
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                badLocation, Toast.LENGTH_LONG).show();
+                        try {
+                            launchPlace();
+                        } catch (GooglePlayServicesNotAvailableException | GooglePlayServicesRepairableException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

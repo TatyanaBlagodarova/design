@@ -1,6 +1,6 @@
 package com.material.tblagodarova.design.ui.network;
 
-import com.material.tblagodarova.design.data.WeatherJson;
+import com.material.tblagodarova.design.data.weather.WeatherJson;
 
 import org.androidannotations.annotations.rest.Get;
 import org.androidannotations.annotations.rest.Rest;

@@ -61,15 +61,24 @@
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                        android:value="com.material.tblagodarova.design.ui.MainActivity" />
         </activity>
-
+        <activity android:name="com.material.tblagodarova.design.ui.GoogleSignInActivity_"
+                  android:label="@string/title_layout_changes"
+                  android:parentActivityName="com.material.tblagodarova.design.ui.MainActivity">
+        </activity>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="fde999be492fea9e48272e48cf24ccb1afdbaea5" />
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="AIzaSyBoa6wao8ksgK4Hnkz1X4ZlJf9RAfsddKM" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+
 
 </manifest>

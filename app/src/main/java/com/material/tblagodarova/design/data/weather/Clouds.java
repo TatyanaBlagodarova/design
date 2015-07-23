@@ -1,4 +1,4 @@
-package com.material.tblagodarova.design.data;
+package com.material.tblagodarova.design.data.weather;
 
 import java.util.HashMap;
 import java.util.Map;
